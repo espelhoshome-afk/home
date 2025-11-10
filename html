@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Co-Cria - Espelhos Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2e3c23;
+            --secondary-color: #f8f9fa;
+            --accent-color: #d4af37;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --text-light: rgba(255, 255, 255, 0.9);
+            --green-dark: #2e3c23;
+            --green-darker: #1e2a18;
+            --gradient-1: linear-gradient(135deg, #2e3c23 0%, #1e2a18 100%);
+            --gradient-2: linear-gradient(135deg, #3a4a2e 0%, #2e3c23 100%);
+            --gradient-3: linear-gradient(135deg, #2e3c23 0%, #0f1409 100%);
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo::before {
+            content: '✦';
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-dark);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--green-dark);
+            color: white;
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-darker);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--gradient-1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+             margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            color: var(--accent-color);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-color);
+            font-weight: 600;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-white:hover {
+            background: #f8f9fa;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+            color: var(--green-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* Dashboard Preview */
+        .dashboard-preview {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--green-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* How it Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .step {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+
+        .step:hover::before {
+            left: 0;
+            opacity: 0.05;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .step-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 2rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--green-dark);
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .step-feature {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--green-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        /* Benefits */
+        .benefits {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .benefit {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-2);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .benefit:hover::before {
+            opacity: 0.05;
+        }
+
+        .benefit:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+            border-color: var(--accent-color);
+        }
+
+        .benefit-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-2);
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .benefit h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--green-dark);
+        }
+
+        .benefit p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--gradient-3);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-2);
+            opacity: 0.2;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta .section-title,
+        .cta .section-subtitle {
+            color: white;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .cta-note {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .steps,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Scroll indicators */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--secondary-color);
+            z-index: 1001;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: var(--gradient-1);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
+    </div>
+
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">Espelhos Home</a>
+
+            <ul class="nav-links">
+                <li><a href="#como-funciona">Como Funciona</a></li>
+                <li><a href="#beneficios">Benefícios</a></li>
+                <li><a href="#parceria">Parceria</a></li>
+                <li><a href="https://espelhoshome.goaffpro.com/login" class="btn btn-primary">Entrar</a></li>
+            </ul>
+
+            <button class="mobile-menu" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    Programa Exclusivo para Arquitetos
+                </div>
+                <h1>CO.cria</h1>
+                <p class="hero-subtitle">Espelhos Home</p>
+                <p>Um programa exclusivo para arquitetos que transformam ambientes com propósito. Faça parte da nossa rede de parceiros e leve elegância e exclusividade para seus projetos.</p>
+                
+                <div class="hero-buttons">
+                    <a href="https://espelhoshome.goaffpro.com/create-account" class="btn btn-white">
+                        <i class="fas fa-rocket"></i>
+                        Começar Agora
+                    </a>
+                    <a href="#como-funciona" class="btn btn-outline">
+                        <i class="fas fa-play"></i>
+                        Como Funciona
+                    </a>
+                </div>
+
+                <!-- Dashboard Preview -->
+                <div class="dashboard-preview float">
+                    <div class="dashboard-header">
+                        <h3>Sua Central de Controle</h3>
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">47</div>
+                            <div class="stat-label">Projetos Ativos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">152</div>
+                            <div class="stat-label">Clientes Satisfeitos</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <span style="font-size: 0.9rem;">Performance do Mês</span>
+                            <span style="color: var(--accent-color); font-weight: 700;">Excelente</span>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; background: var(--accent-color); width: 85%; border-radius: 4px; transition: width 0.3s ease;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section id="como-funciona" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Como Funciona</h2>
+                <p class="section-subtitle">Um processo simples e transparente para arquitetos que valorizam a estética, a elegância e a curadoria personalizada. Transforme sua expertise em reconhecimento e resultados.</p>
+            </div>
+            <div class="steps">
+                <div class="step animate-on-scroll">
+                    <div class="step-content">
+                        <div class="step-number">1</div>
+                        <h3>Cadastre-se Gratuitamente</h3>
+                        <p>Crie sua conta em menos de 2 minutos e tenha acesso imediato ao seu portal exclusivo com todas as ferramentas necessárias para começar.</p>
+                        <div class="step-feature">
+                            <i class="fas fa-gift"></i>
+                            Sem taxas de inscrição
+                        </div>
+                    </div>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="step-content">
+                        <div class="step-number">2</div>
+                        <h3>Acesse Materiais Exclusivos</h3>
+                        <p>Tenha acesso a catálogos exclusivos, materiais promocionais de alta qualidade e suporte técnico especializado para seus projetos.</p>
+                        <div class="step-feature">
+                            <i class="fas fa-palette"></i>
+                            Conteúdo profissional incluso
+                        </div>
+                    </div>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="step-content">
+                        <div class="step-number">3</div>
+                        <h3>Cresça Conosco</h3>
+                        <p>Desenvolva projetos incríveis com nossos espelhos premium e acompanhe seu crescimento através do dashboard completo de métricas.</p>
+                        <div class="step-feature">
+                            <i class="fas fa-chart-growth"></i>
+                            Acompanhamento em tempo real
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section id="beneficios" class="section benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Por que Escolher Nosso Programa?</h2>
+                <p class="section-subtitle">Oferecemos as melhores condições e suporte para arquitetos que buscam excelência em seus projetos</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit animate-on-scroll">
+                    <div class="benefit-content">
+                        <div class="benefit-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Produtos Premium</h3>
+                        <p>Espelhos decorativos de alta qualidade com design exclusivo e acabamento impecável, ideais para projetos exclusivos.</p>
+                    </div>
+                </div>
+                <div class="benefit animate-on-scroll">
+                    <div class="benefit-content">
+                        <div class="benefit-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>Reconhecimento Profissional</h3>
+                        <p>Faça parte de uma rede seleta de arquitetos parceiros e tenha seu trabalho reconhecido no mercado de design de interiores.</p>
+                    </div>
+                </div>
+                <div class="benefit animate-on-scroll">
+                    <div class="benefit-content">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Dashboard Completo</h3>
+                        <p>Acompanhe o desempenho dos seus projetos com métricas detalhadas e insights valiosos para otimizar seus resultados.</p>
+                    </div>
+                </div>
+                <div class="benefit animate-on-scroll">
+                    <div class="benefit-content">
+                        <div class="benefit-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Materiais Exclusivos</h3>
+                        <p>Acesso a catálogos profissionais, renders em alta qualidade e materiais promocionais para apresentar aos seus clientes.</p>
+                    </div>
+                </div>
+                <div class="benefit animate-on-scroll">
+                    <div class="benefit-content">
+                        <div class="benefit-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Suporte Especializado</h3>
+                        <p>Equipe técnica dedicada para auxiliar em especificações, dúvidas técnicas e suporte completo em seus projetos.</p>
+                    </div>
+                </div>
+                <div class="benefit animate-on-scroll">
+                    <div class="benefit-content">
+                        <div class="benefit-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Networking Exclusivo</h3>
+                        <p>Conecte-se com outros arquitetos parceiros, troque experiências e faça parte de uma comunidade profissional diferenciada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="parceria" class="section cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="section-title">Pronto para Fazer Parte?</h2>
+                <p class="section-subtitle">Junte-se a mais de 1.000 arquitetos que já fazem parte da nossa rede exclusiva de parceiros</p>
+                <div class="cta-buttons">
+                    <a href="https://espelhoshome.goaffpro.com/create-account" class="btn btn-white">
+                        <i class="fas fa-rocket"></i>
+                        Criar Conta Gratuita
+                    </a>
+                    <a href="https://espelhoshome.goaffpro.com/login" class="btn btn-outline">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Já tenho conta
+                    </a>
+                </div>
+                <p class="cta-note">✦ Sem taxa de inscrição • Comece hoje mesmo • Suporte completo incluso</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const scrolled = window.pageYOffset;
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrolled / windowHeight) * 100;
+            
+            scrollProgress.style.width = progress + '%';
+            
+            if (scrolled > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const target
